@@ -65,7 +65,24 @@ public class StudentServiceImpl implements StudentService {
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
         return this.studentRepository.findAll(pageable);
     }
-
+    public Student saveFile(MultipartFile file) {
+        String docname = file.getOriginalFilename();
+        try {
+            Student doc = new Student(docname,file.getContentType(),file.getBytes());
+            return studentRepository.save(doc);
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public Optional<Student> getFile(Long fileId) {
+        return studentRepository.findById(fileId);
+    }
+    public List<Student> getFiles()
+    {
+        return studentRepository.findAll();
+    }
 }
 
 

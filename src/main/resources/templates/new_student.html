@@ -13,7 +13,10 @@
     <hr>
     <h2>Save Student</h2>
 
-    <form action="#" th:action="@{/saveStudent}" th:object="${student}" method="POST">
+
+
+    <form action="#" th:action="@{/saveStudent}" th:object="${student}" method="POST" >
+
         <input type="text" th:field="*{firstName}" placeholder="Student First Name" class="form-control mb-4 col-4">
 
         <input type="text" th:field="*{lastName}" placeholder="Student Last Name" class="form-control mb-4 col-4">
@@ -26,9 +29,15 @@
 
         <input type="text" th:field="*{address}" placeholder="Address" class="form-control mb-4 col-4">
 
-        <button type="submit" class="btn btn-info col-2"> Save Student</button>
-    </form>
 
+
+
+
+            <br><br>
+        <button type="submit" class="btn btn-info col-2"> Save Student</button>
+
+    </form>
+</div>
 
 
     <hr>

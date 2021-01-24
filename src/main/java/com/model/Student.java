@@ -27,12 +27,25 @@ public class Student {
     private String age;
 
     @Column(name = "address")
+
     private String address;
+
+    private String docName;
+    private String docType;
+
+    @Lob
+    private byte[] data;
 
 
     public Student()
     {
 
+    }
+
+    public Student(String docName, String docType, byte[] data) {
+        this.docName = docName;
+        this.docType = docType;
+        this.data = data;
     }
 
     public Student(long id, String firstName, String lastName, String email) {
@@ -80,4 +93,27 @@ public class Student {
     public String getAddress() { return address; }
     public void setAddress(String address) { this.address = address; }
 
+    public String getDocName() {
+        return docName;
+    }
+
+    public void setDocName(String docName) {
+        this.docName = docName;
+    }
+
+    public String getDocType() {
+        return docType;
+    }
+
+    public void setDocType(String docType) {
+        this.docType = docType;
+    }
+
+    public byte[] getData() {
+        return data;
+    }
+
+    public void setData(byte[] data) {
+        this.data = data;
+    }
 }

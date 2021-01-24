@@ -5,7 +5,11 @@ import com.service.DocStorageService;
 import com.service.StudentService;
 import com.service.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +26,7 @@ public class StudentController
     @Autowired
     private StudentService studentService;
     @Autowired
-    private StudentServiceImpl docStorageService;
+    private StudentServiceImpl StorageService;
 
     // display list of employees
     @GetMapping("/")
@@ -40,10 +44,11 @@ public class StudentController
     }
 
     @PostMapping("/saveStudent")
-    public String saveStudent(@ModelAttribute("student") Student student) {
+    public String saveStudent(@ModelAttribute("student") Student student ) {
         // save Student to database
         studentService.saveStudent(student);
-        return "redirect:/";
+
+        return "demo_db";
     }
 
     @GetMapping("/showFormForUpdateStudent/{id}")
@@ -88,6 +93,28 @@ public class StudentController
         return "student_index";
     }
 
+    @PostMapping("/uploadFiles")
+    public String uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
+        for (MultipartFile file: files) {
+            StorageService.saveFile(file);
 
+        }
+        return "redirect:/";
+    }
+    @GetMapping("/downloadFiles/{fileId}")
+    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable Long fileId){
+       Student doc = StorageService.getFile(fileId).get();
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(doc.getDocType()))
+                .header(HttpHeaders.CONTENT_DISPOSITION,"attachment:filename=\""+doc.getDocName()+"\"")
+                .body(new ByteArrayResource(doc.getData()));
+    }
+    @GetMapping("/down")
+    public String deleteStudents()
+    {
+
+
+        return "download";
+    }
 
 }

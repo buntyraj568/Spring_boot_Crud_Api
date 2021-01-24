@@ -28,7 +28,7 @@ public class DocController {
 		return "home";
 	}
 	
-	@PostMapping("/uploadFiles")
+	@PostMapping("/uploadFiless")
 	public String uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
 		for (MultipartFile file: files) {
 			docStorageService.saveFile(file);

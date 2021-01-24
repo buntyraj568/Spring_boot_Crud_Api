@@ -48,6 +48,7 @@
                     Address</a>
             </th>
             <th> Actions </th>
+            <th> Download </th>
 
         </tr>
         </thead>
@@ -61,9 +62,15 @@
             <td th:text="${student.address}"></td>
 
             <td> <a th:href="@{/showFormForUpdateStudent/{id}(id=${student.id})}" class="btn btn-primary">Update</a>
-                <a th:href="@{/deleteStudent/{id}(id=${student.id})}" class="btn btn-danger">Delete</a>
-            </td>
+                <a th:href="@{/deleteStudent/{id}(id=${student.id})}" class="btn btn-danger">Delete</a> </td>
+
+            <td><a th:href="@{/downloadFile/{id}(id=${student.id})}" class="btn btn-primary">Download</a></td>
         </tr>
+
+
+        downloadFile
+
+
         </tbody>
     </table>
 
